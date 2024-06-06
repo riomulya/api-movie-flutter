@@ -12,20 +12,30 @@ const db = getDatabase();
 
 class MovieController {
   async getAllMovies(req, res) {
+    const dbRef = ref(getDatabase());
+
     try {
-      const snapshot = await ref(db, 'movies').get();
-      if (snapshot.exists()) {
-        const movies = [];
-        snapshot.forEach((childSnapshot) => {
-          movies.push({
-            id: childSnapshot.key,
-            ...childSnapshot.val(),
-          });
-        });
-        res.json(movies);
-      } else {
-        res.status(404).json({ message: 'No movies found' });
-      }
+      get(child(dbRef, `movies/`)).then((snapshot) => {
+        if (snapshot.exists()) {
+          console.log(snapshot.val());
+          res.status(200).json({ ...snapshot.val() });
+        } else {
+          res.status(404).json({ message: 'Movie not found' });
+        }
+      });
+      // const snapshot = await ref(db, 'movies').get();
+      // if (snapshot.exists()) {
+      //   const movies = [];
+      //   snapshot.forEach((childSnapshot) => {
+      //     movies.push({
+      //       id: childSnapshot.key,
+      //       ...childSnapshot.val(),
+      //     });
+      //   });
+      //   res.json(movies);
+      // } else {
+      //   res.status(404).json({ message: 'No movies found' });
+      // }
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
