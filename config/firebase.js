@@ -1,5 +1,6 @@
 const { initializeApp } = require('firebase/app');
 
+const serviceAccount = require('../FirebaseService.json');
 const { getDatabase } = require('firebase/database');
 
 const {
