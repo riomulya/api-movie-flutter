@@ -26,7 +26,6 @@ app.use(MoviesRoutes);
 app.use(verifyToken);
 
 app.get('/', (req, res) => {
-  console.log(req.cookies.authToken);
   res.send('Hello World');
 });
 
