@@ -4,7 +4,7 @@ require('dotenv').config();
 const AuthRoutes = require('./routes/auth.routes');
 const MoviesRoutes = require('./routes/movies.routes');
 
-const verifyToken = require('./middlewares/auth.middlewares');
+// const verifyToken = require('./middlewares/auth.middlewares');
 
 const PORT = process.env.PORT || 8080;
 
@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(AuthRoutes);
 app.use(MoviesRoutes);
 
-app.use(verifyToken);
+// app.use(verifyToken);
 
 app.get('/', (req, res) => {
   res.send('Hello World');
