@@ -80,12 +80,13 @@ class MovieController {
 
   async createMovie(req, res) {
     try {
-      const { imgUrl, title, description, dateMovie } = req.body;
+      const { imgUrl, title, description, dateMovie, genre } = req.body;
       const newMovieRef = await push(ref(db, 'movies'), {
         imgUrl,
         title,
         description,
         dateMovie,
+        genre,
       });
       res
         .status(201)
@@ -117,12 +118,13 @@ class MovieController {
   async updateMovie(req, res) {
     try {
       const { id } = req.params;
-      const { imgUrl, title, description, dateMovie } = req.body;
+      const { imgUrl, title, description, dateMovie,genre } = req.body;
       await update(ref(db, `movies/${id}`), {
         imgUrl,
         title,
         description,
         dateMovie,
+        genre
       });
       res.status(200).json({ message: 'Movie updated successfully' });
     } catch (error) {
