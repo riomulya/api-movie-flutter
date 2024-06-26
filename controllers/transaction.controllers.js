@@ -38,15 +38,15 @@ class TransactionController {
     console.log(token);
     res.send(token);
   }
-  async finishTransaction(req, res) {
+  finishTransaction(req, res) {
     res.sendFile(path.join(__dirname, 'public', 'finish.html'));
   }
 
-  async unfinishTransaction(req, res) {
+  unfinishTransaction(req, res) {
     res.sendFile(path.join(__dirname, 'public', 'unfinish.html'));
   }
 
-  async errorTransaction(req, res) {
+  errorTransaction(req, res) {
     res.sendFile(path.join(__dirname, 'public', 'error.html'));
   }
   async getTransactionStatus(req, res) {
