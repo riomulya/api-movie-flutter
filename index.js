@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const AuthRoutes = require('./routes/auth.routes');
 const MoviesRoutes = require('./routes/movies.routes');
+const TransactionsRoutes = require('./routes/transactions.routes');
 
 // const verifyToken = require('./middlewares/auth.middlewares');
 
@@ -22,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(AuthRoutes);
 app.use(MoviesRoutes);
-
+app.use(TransactionsRoutes);
 // app.use(verifyToken);
 
 app.get('/', (req, res) => {
