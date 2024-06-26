@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const TansactionController = require('../controllers/transaction.controllers.js');
+const TransactionController = require('../controllers/transaction.controllers.js');
 
-router.post('/createTransaction', TansactionController.createTransaction);
+router.post('/createTransaction', TransactionController.createTransaction);
 
 module.exports = router;
