@@ -1,5 +1,5 @@
 require('dotenv').config();
-
+const path = require('path');
 const midtransClient = require('midtrans-client');
 
 let snap = new midtransClient.Snap({
@@ -39,17 +39,16 @@ class TransactionController {
     res.send(token);
   }
   async finishTransaction(req, res) {
-    res.send('Transaksi Selesai Terima kasih');
+    res.sendFile(path.join(__dirname, 'public', 'finish.html'));
   }
 
   async unfinishTransaction(req, res) {
-    res.send('Transaksi Belum selesai');
+    res.sendFile(path.join(__dirname, 'public', 'unfinish.html'));
   }
 
   async errorTransaction(req, res) {
-    res.send('Transaksi Di batalkan');
+    res.sendFile(path.join(__dirname, 'public', 'error.html'));
   }
-
   async getTransactionStatus(req, res) {
     const { orderId } = req.body;
     const url = `https://api.sandbox.midtrans.com/v2/${orderId}/status`;
