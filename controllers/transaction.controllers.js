@@ -84,7 +84,7 @@ class TransactionController {
   }
 
   async getTransactionStatus(req, res) {
-    const { orderId } = req.params;
+    const { orderId } = req.body;
     const url = `https://api.sandbox.midtrans.com/v2/${orderId}/status`;
 
     try {
