@@ -3,9 +3,9 @@ const router = express.Router();
 const TransactionController = require('../controllers/transaction.controllers.js');
 
 router.post('/createTransaction', TransactionController.createTransaction);
-router.post('/finishTransaction', TransactionController.finishTransaction);
-router.post('/unfinishTransaction', TransactionController.unfinishTransaction);
-router.post('/errorTransaction', TransactionController.errorTransaction);
+router.get('/finishTransaction', TransactionController.finishTransaction);
+router.get('/unfinishTransaction', TransactionController.unfinishTransaction);
+router.get('/errorTransaction', TransactionController.errorTransaction);
 router.post('/orderStatus', TransactionController.getTransactionStatus);
 
 module.exports = router;
