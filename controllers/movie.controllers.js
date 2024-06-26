@@ -93,7 +93,7 @@ class MovieController {
         .status(201)
         .json({ message: 'Movie created successfully', id: newMovieRef.key });
     } catch (error) {
-      res.status(500).json({ error: error });
+      res.status(500).json({ error });
     }
   }
 
