@@ -20,7 +20,7 @@ class TransactionController {
         quantity: quantity,
       },
       transaction_details: {
-        order_id: new Date().toISOString,
+        order_id: Math.random() * 10000,
         gross_amount: grossAmount,
       },
     };
