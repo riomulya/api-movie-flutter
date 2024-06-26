@@ -39,48 +39,15 @@ class TransactionController {
     res.send(token);
   }
   async finishTransaction(req, res) {
-    const { token, orderId } = req.body;
-    try {
-      let parameter = {
-        token: token,
-        order_id: orderId,
-      };
-      let finish = await snap.finishTransaction(parameter);
-      res.send(finish);
-    } catch (error) {
-      console.log(error);
-    }
-    res.statusCode(400).send('Error finishing transaction');
+    res.send('Transaksi Selesai Terima kasih');
   }
 
   async unfinishTransaction(req, res) {
-    const { token, orderId } = req.body;
-    try {
-      let parameter = {
-        token: token,
-        order_id: orderId,
-      };
-      let finish = await snap.unfinishTransaction(parameter);
-      res.send(finish);
-    } catch (error) {
-      console.log(error);
-    }
-    res.statusCode(400).send('Error finishing transaction');
+    res.send('Transaksi Belum selesai');
   }
 
   async errorTransaction(req, res) {
-    const { token, orderId } = req.body;
-    try {
-      let parameter = {
-        token: token,
-        order_id: orderId,
-      };
-      let finish = await snap.errorTransaction(parameter);
-      res.send(finish);
-    } catch (error) {
-      console.log(error);
-    }
-    res.statusCode(400).send('Error finishing transaction');
+    res.send('Transaksi Di batalkan');
   }
 
   async getTransactionStatus(req, res) {
