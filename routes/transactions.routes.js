@@ -6,5 +6,6 @@ router.post('/createTransaction', TransactionController.createTransaction);
 router.post('/finishTransaction', TransactionController.finishTransaction);
 router.post('/unfinishTransaction', TransactionController.unfinishTransaction);
 router.post('/errorTransaction', TransactionController.errorTransaction);
+router.get('/orderStatus/:orderId', TransactionController.getTransactionStatus);
 
 module.exports = router;

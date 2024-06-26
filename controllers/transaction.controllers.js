@@ -82,6 +82,34 @@ class TransactionController {
     }
     res.statusCode(400).send('Error finishing transaction');
   }
+
+  async getTransactionStatus(req, res) {
+    const { orderId } = req.params;
+    const url = `https://api.sandbox.midtrans.com/v2/${orderId}/status`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization:
+            'Basic ' +
+            Buffer.from(process.env.MIDTRANS_SERVER_KEY).toString('base64'),
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      res.status(200).json(data);
+    } catch (error) {
+      console.error('Error fetching transaction status:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
 }
 
 module.exports = new TransactionController();
