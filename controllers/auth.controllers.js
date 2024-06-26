@@ -48,8 +48,12 @@ class FirebaseAuthController {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const idToken = userCredential._tokenResponse.idToken;
-        if (idToken) {
+        const email = userCredential.user.email;
+        if (idToken && email) {
           res.cookie('authToken', idToken, {
+            httpOnly: true,
+          });
+          res.cookie('email', email, {
             httpOnly: true,
           });
           res
