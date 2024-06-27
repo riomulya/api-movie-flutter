@@ -50,6 +50,10 @@ class TransactionController {
     res.send(token);
   }
   finishTransaction(req, res) {
+    const { transaction_status } = req.params;
+    if (transaction_status === 'pending') {
+      res.send('<h1>Transaksi Pending</h1>');
+    }
     res.send('<h1>Transaksi Berhasil</h1>');
   }
 
