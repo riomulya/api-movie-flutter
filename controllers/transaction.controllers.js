@@ -89,12 +89,11 @@ class TransactionController {
   }
   async insertTransaction(req, res) {
     try {
-      const { email, quantity, grossAmount, date, seat, orderId } = req.body;
+      const { email, quantity, grossAmount, seat, orderId } = req.body;
       const newTransactionRef = await push(ref(db, 'transactions'), {
         email,
         quantity,
         grossAmount,
-        date,
         seat,
         orderId,
       });
