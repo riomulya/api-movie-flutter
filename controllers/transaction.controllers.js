@@ -89,13 +89,14 @@ class TransactionController {
   }
   async insertTransaction(req, res) {
     try {
-      const { email, quantity, grossAmount, seat, orderId } = req.body;
+      const { email, quantity, grossAmount, seat, orderId, idMovie } = req.body;
       const newTransactionRef = await push(ref(db, 'transactions'), {
         email,
         quantity,
         grossAmount,
         seat,
         orderId,
+        idMovie,
       });
       res.status(201).json({
         message: 'Transaction created successfully',
