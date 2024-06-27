@@ -1,5 +1,16 @@
+const {
+  getDatabase,
+  ref,
+  push,
+  set,
+  get,
+  child,
+  update,
+  remove,
+} = require('firebase/database');
+
+const db = getDatabase();
 require('dotenv').config();
-const path = require('path');
 const midtransClient = require('midtrans-client');
 
 let snap = new midtransClient.Snap({
@@ -90,6 +101,22 @@ class TransactionController {
       res.status(201).json({
         message: 'Transaction created successfully',
         id: newTransactionRef.key,
+      });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
+  async getAllTransactions(req, res) {
+    const dbRef = ref(getDatabase());
+    try {
+      get(child(dbRef, 'transactions/')).then((snapshot) => {
+        if (snapshot.exists()) {
+          console.log(snapshot.val());
+          res.status(200).json({ ...snapshot.val() });
+        } else {
+          res.status(404).json({ message: 'Transaction not found' });
+        }
       });
     } catch (error) {
       res.status(500).json({ error: error.message });
