@@ -39,15 +39,15 @@ class TransactionController {
     res.send(token);
   }
   finishTransaction(req, res) {
-    res.sendFile(path.join(__dirname, '..', 'public', 'finish.html'));
+    res.send('<h1>Transaksi Berhasil</h1>');
   }
 
   unfinishTransaction(req, res) {
-    res.sendFile(path.join(__dirname, '..', 'public', 'unfinish.html'));
+    res.send('<h1>Transaksi Belum Selesai</h1>');
   }
 
   errorTransaction(req, res) {
-    res.sendFile(path.join(__dirname, '..', 'public', 'error.html'));
+    res.send('<h1>Transaksi Error</h1>');
   }
   async getTransactionStatus(req, res) {
     const { orderId } = req.body;

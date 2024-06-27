@@ -4,7 +4,6 @@ require('dotenv').config();
 const AuthRoutes = require('./routes/auth.routes');
 const MoviesRoutes = require('./routes/movies.routes');
 const TransactionsRoutes = require('./routes/transactions.routes');
-const path = require('path');
 
 // const verifyToken = require('./middlewares/auth.middlewares');
 const PORT = process.env.PORT || 8080;
@@ -14,7 +13,6 @@ const bodyParser = require('body-parser');
 
 // Gunakan middleware bodyParser untuk mengurai body permintaan
 app.use(bodyParser.json());
-app.use(express.static('public'));
 
 app.use(express.json());
 app.use(cookieParser());
