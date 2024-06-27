@@ -76,6 +76,25 @@ class TransactionController {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
+  async insertTransaction(req, res) {
+    try {
+      const { email, quantity, grossAmount, date, seat, orderId } = req.body;
+      const newTransactionRef = await push(ref(db, 'transactions'), {
+        email,
+        quantity,
+        grossAmount,
+        date,
+        seat,
+        orderId,
+      });
+      res.status(201).json({
+        message: 'Transaction created successfully',
+        id: newTransactionRef.key,
+      });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new TransactionController();
