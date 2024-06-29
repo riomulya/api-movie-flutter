@@ -13,6 +13,7 @@ router.get(
   '/getAllTransactionHistory',
   TransactionController.getAllTransactionHistory
 );
-router.get('/searchTransaction', TransactionController.searchTransaction);
+
+router.post('/searchTransaction', TransactionController.searchTransaction);
 
 module.exports = router;
