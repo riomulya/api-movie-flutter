@@ -222,6 +222,9 @@ class TransactionController {
         return transactionTime >= start && transactionTime <= end;
       });
 
+      if (filteredTransactions.length === 0) {
+        return res.status(404).json({ message: 'No transactions found' });
+      }
       res.status(200).json(filteredTransactions);
     } catch (error) {
       console.error('Error fetching transaction history:', error);
