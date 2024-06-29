@@ -172,6 +172,62 @@ class TransactionController {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
+
+  async searchTransaction(req, res) {
+    const { startDate, endDate } = req.body;
+    const dbRef = ref(getDatabase());
+    try {
+      const snapshot = await get(child(dbRef, 'transactions/'));
+      if (!snapshot.exists()) {
+        return res.status(404).json({ message: 'No transactions found' });
+      }
+
+      const transactions = snapshot.val();
+      const transactionHistory = await Promise.all(
+        Object.keys(transactions).map(async (key) => {
+          const orderId = transactions[key].orderId;
+          const url = `https://api.sandbox.midtrans.com/v2/${orderId}/status`;
+
+          const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+              Authorization:
+                'Basic ' +
+                Buffer.from(process.env.MIDTRANS_SERVER_KEY + ':').toString(
+                  'base64'
+                ),
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error(`Failed to fetch status for order ID ${orderId}`);
+          }
+
+          const data = await response.json();
+          return {
+            ...transactions[key],
+            status: data.transaction_status,
+            transaction_time: data.transaction_time,
+          };
+        })
+      );
+
+      // Filter transaksi berdasarkan rentang waktu
+      const filteredTransactions = transactionHistory.filter((transaction) => {
+        const transactionTime = new Date(transaction.transaction_time);
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        return transactionTime >= start && transactionTime <= end;
+      });
+
+      res.status(200).json(filteredTransactions);
+    } catch (error) {
+      console.error('Error fetching transaction history:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
 }
 
 module.exports = new TransactionController();
