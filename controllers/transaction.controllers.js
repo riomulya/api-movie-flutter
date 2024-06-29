@@ -219,7 +219,7 @@ class TransactionController {
         const transactionTime = new Date(transaction.transaction_time);
         const start = new Date(startDate);
         const end = new Date(endDate);
-        return transactionTime >= start && transactionTime = end;
+        return transactionTime >= start && transactionTime == end;
       });
 
       if (filteredTransactions.length === 0) {
