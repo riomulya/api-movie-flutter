@@ -8,5 +8,10 @@ router.get('/finishTransaction', TransactionController.finishTransaction);
 router.get('/unfinishTransaction', TransactionController.unfinishTransaction);
 router.get('/errorTransaction', TransactionController.errorTransaction);
 router.post('/orderStatus', TransactionController.getTransactionStatus);
+router.get('/getAllTransactions', TransactionController.getAllTransactions);
+router.get(
+  '/getAllTransactionHistory',
+  TransactionController.getAllTransactionHistory
+);
 
 module.exports = router;
